@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Escolha sua Logo — Manuela Amorim</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sage: #7D8E7A;
+    --ocean: #6B8F9E;
+    --terra: #A67B5B;
+    --sand: #E8DDD0;
+    --cream: #F5F0E8;
+    --dark: #2C2C2A;
+    --mid: #5A5A55;
+    --light: #9A9A90;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--dark); font-weight: 300; }
+
+  .hero {
+    background: var(--sage);
+    padding: 90px 60px 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 60% 0%, rgba(107,143,158,0.4) 0%, transparent 65%);
+  }
+  .hero-eyebrow {
+    font-size: 10px; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase;
+    color: rgba(255,255,255,0.55); margin-bottom: 20px; position: relative;
+  }
+  .hero h1 {
+    font-family: 'DM Serif Display', serif; font-size: clamp(44px, 6vw, 76px);
+    color: white; line-height: 1.05; margin-bottom: 20px; position: relative;
+  }
+  .hero h1 em { font-style: italic; color: var(--sand); }
+  .hero-sub {
+    font-size: 15px; font-weight: 300; color: rgba(255,255,255,0.7);
+    max-width: 520px; margin: 0 auto 36px; line-height: 1.85; position: relative;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 40px; padding: 10px 24px; font-size: 11px; font-weight: 500;
+    letter-spacing: 0.12em; text-transform: uppercase; color: white; position: relative;
+  }
+  .hero-badge span {
+    width: 6px; height: 6px; background: var(--sand); border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:0.4; transform:scale(0.7); } }
+
+  .instrucao {
+    background: white; border-bottom: 1px solid var(--sand);
+    padding: 22px 60px; display: flex; align-items: center;
+    justify-content: center; gap: 40px; flex-wrap: wrap;
+  }
+  .instrucao-item {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13px; font-weight: 500; letter-spacing: 0.08em;
+    color: var(--mid); text-transform: uppercase;
+  }
+  .instrucao-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+  .counter-bar {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(245,240,232,0.96); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--sand); padding: 12px 60px;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  }
+  .counter-label { font-size: 12px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--light); flex-shrink: 0; }
+  #selected-name { font-family: 'DM Serif Display', serif; font-size: 18px; color: var(--terra); font-style: italic; text-align: center; flex: 1; }
+  .btn-confirmar {
+    background: var(--sage); color: white; border: none; padding: 12px 32px;
+    border-radius: 40px; font-family: 'Jost', sans-serif; font-size: 12px;
+    font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
+    cursor: pointer; transition: background 0.3s, transform 0.2s;
+    opacity: 0.35; pointer-events: none; flex-shrink: 0;
+  }
+  .btn-confirmar.active { opacity: 1; pointer-events: all; }
+  .btn-confirmar.active:hover { background: var(--terra); transform: scale(1.03); }
+
+  .group { padding: 72px 60px 40px; max-width: 1200px; margin: 0 auto; }
+  .group-header {
+    display: flex; align-items: center; gap: 18px;
+    margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--sand);
+  }
+  .group-icon {
+    width: 50px; height: 50px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; flex-shrink: 0;
+  }
+  .group-title { font-family: 'DM Serif Display', serif; font-size: 34px; color: var(--dark); }
+  .group-sub { font-size: 13px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--light); margin-top: 3px; }
+  .group-meaning {
+    background: var(--sand); border-radius: 12px; padding: 22px 30px;
+    margin: 24px 0 32px; font-size: 16px; color: var(--mid);
+    line-height: 1.85; font-style: italic; border-left: 3px solid var(--terra);
+  }
+  .group-meaning strong { font-style: normal; color: var(--dark); }
+
+  .cards-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+  .logo-card {
+    border-radius: 18px; overflow: hidden; border: 2px solid transparent;
+    cursor: pointer; transition: all 0.3s ease; background: white;
+    position: relative; user-select: none;
+  }
+  .logo-card:hover { transform: translateY(-5px); box-shadow: 0 16px 36px rgba(0,0,0,0.09); border-color: rgba(125,142,122,0.3); }
+  .logo-card.selected { border-color: var(--sage); box-shadow: 0 0 0 4px rgba(125,142,122,0.18), 0 16px 36px rgba(0,0,0,0.1); transform: translateY(-7px); }
+  .check {
+    position: absolute; top: 12px; right: 12px; width: 26px; height: 26px;
+    background: var(--sage); border-radius: 50%; display: flex; align-items: center;
+    justify-content: center; opacity: 0; transform: scale(0.4);
+    transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1); z-index: 2;
+  }
+  .check svg { width: 13px; height: 13px; stroke: white; stroke-width: 2.5; fill: none; }
+  .logo-card.selected .check { opacity: 1; transform: scale(1); }
+  .logo-img-wrap {
+    background: #FAFAF8; height: 200px; display: flex;
+    align-items: center; justify-content: center; padding: 28px; transition: background 0.3s;
+  }
+  .logo-card.selected .logo-img-wrap { background: #EFF4EF; }
+  .logo-img-wrap img { max-width: 100%; max-height: 100%; object-fit: contain; }
+  .logo-card-body { padding: 20px 24px 24px; border-top: 1px solid var(--sand); }
+  .logo-card-name { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--dark); margin-bottom: 3px; }
+  .logo-card-type { font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--terra); margin-bottom: 10px; }
+  .logo-card-desc { font-size: 15px; color: var(--mid); line-height: 1.75; }
+  .logo-card-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 12px; }
+  .tag {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+    background: var(--cream); color: var(--sage); padding: 4px 12px;
+    border-radius: 20px; border: 1px solid rgba(125,142,122,0.25);
+  }
+  .section-divider { max-width: 1200px; margin: 40px auto 0; height: 1px; background: var(--sand); }
+
+  .modal-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(44,44,42,0.65); backdrop-filter: blur(6px);
+    z-index: 200; align-items: center; justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--cream); border-radius: 24px; padding: 52px 56px;
+    max-width: 480px; width: 90%; text-align: center;
+    animation: popIn 0.4s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  @keyframes popIn { from { opacity:0; transform:scale(0.82); } to { opacity:1; transform:scale(1); } }
+  .modal-icon { width: 68px; height: 68px; background: var(--sage); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; font-size: 28px; }
+  .modal h2 { font-family: 'DM Serif Display', serif; font-size: 30px; color: var(--dark); margin-bottom: 8px; }
+  .modal h2 em { font-style: italic; color: var(--sage); }
+  .modal-chosen { font-family: 'DM Serif Display', serif; font-size: 20px; color: var(--terra); font-style: italic; margin: 18px 0; padding: 14px 20px; background: var(--sand); border-radius: 10px; }
+  .modal p { font-size: 15px; color: var(--mid); line-height: 1.8; margin-bottom: 28px; }
+  .modal-btns { display: flex; gap: 10px; justify-content: center; }
+  .btn-back { background: transparent; color: var(--mid); border: 1px solid var(--sand); padding: 13px 28px; border-radius: 40px; font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; transition: background 0.3s; }
+  .btn-back:hover { background: var(--sand); }
+  .btn-send { background: var(--terra); color: white; border: none; padding: 13px 32px; border-radius: 40px; font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; transition: background 0.3s, transform 0.2s; }
+  .btn-send:hover { background: var(--sage); transform: scale(1.03); }
+
+  .success-screen { display: none; position: fixed; inset: 0; background: var(--sage); z-index: 300; align-items: center; justify-content: center; flex-direction: column; text-align: center; padding: 40px; }
+  .success-screen.open { display: flex; }
+  .success-screen h2 { font-family: 'DM Serif Display', serif; font-size: 54px; color: white; margin-bottom: 16px; }
+  .success-screen h2 em { font-style: italic; color: var(--sand); }
+  .success-screen p { font-size: 16px; color: rgba(255,255,255,0.7); max-width: 460px; line-height: 1.85; }
+  .success-icon { font-size: 64px; margin-bottom: 28px; animation: float 3s ease-in-out infinite; }
+  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+
+  footer { background: var(--dark); padding: 36px 60px; display: flex; justify-content: space-between; align-items: center; margin-top: 60px; flex-wrap: wrap; gap: 12px; }
+  .footer-brand { font-family: 'DM Serif Display', serif; font-size: 13px; color: rgba(255,255,255,0.35); }
+  .footer-brand strong { color: var(--terra); font-style: italic; }
+  .footer-copy { font-size: 10px; color: rgba(255,255,255,0.2); letter-spacing: 0.1em; }
+
+  @media (max-width: 700px) {
+    .hero, .group, footer { padding-left: 24px; padding-right: 24px; }
+    .instrucao, .counter-bar { padding-left: 20px; padding-right: 20px; }
+    .cards-row { grid-template-columns: 1fr; }
+    .modal { padding: 32px 24px; }
+    .counter-bar { flex-wrap: wrap; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <p class="hero-eyebrow">Identidade Visual — Manuela Amorim · Psicóloga</p>
+  <h1>Escolha a sua<br><em>logo.</em></h1>
+  <p class="hero-sub">Cada conceito foi desenvolvido com intenção estratégica e está pronto para uso. Explore as famílias e clique na que mais representa quem você é.</p>
+  <div class="hero-badge"><span></span>11 conceitos finais — prontos para aplicação</div>
+</div>
+
+<div class="instrucao">
+  <div class="instrucao-item"><div class="instrucao-dot" style="background:var(--ocean);"></div>Clique para selecionar</div>
+  <div class="instrucao-item"><div class="instrucao-dot" style="background:var(--sage);"></div>Confirme quando decidir</div>
+  <div class="instrucao-item"><div class="instrucao-dot" style="background:var(--terra);"></div>Pode trocar quantas vezes quiser</div>
+</div>
+
+<div class="counter-bar">
+  <span class="counter-label">Sua escolha</span>
+  <span id="selected-name">nenhuma selecionada ainda</span>
+  <button class="btn-confirmar" id="btn-confirmar" onclick="abrirModal()">Confirmar escolha</button>
+</div>
+
+
+<!-- MÃOS (4) -->
+<div class="group">
+  <div class="group-header">
+    <div class="group-icon" style="background:var(--sage);">🤲</div>
+    <div>
+      <div class="group-title">Família: Mãos</div>
+      <div class="group-sub">Acolhimento · Cuidado · Conexão Humana</div>
+    </div>
+  </div>
+  <div class="group-meaning">
+    Em psicologia, as mãos são o símbolo mais universal de presença humana. Elas escutam, seguram, acolhem. Para uma psicóloga focada em saúde mental no trabalho, a mão diz o que palavras demoram para explicar: <strong>"você não está sozinha nisso."</strong>
+  </div>
+  <div class="cards-row">
+    <div class="logo-card" onclick="selecionar(this)" data-nome="Mãos 01 — Gesto Aberto">
+      <div class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div class="logo-img-wrap"><img src="https://amigosdaordemterceira.com/wp-content/uploads/2026/03/maos1.png" alt="Mãos 01" loading="lazy"></div>
+      <div class="logo-card-body">
+        <div class="logo-card-name">Mãos 01</div>
+        <div class="logo-card-type">Gesto Aberto · Linear</div>
+        <div class="logo-card-desc">Mãos abertas, traço delicado. Transmite escuta sem imposição. Ideal para uma identidade discreta e intelectual.</div>
+        <div class="logo-card-tags"><span class="tag">Delicado</span><span class="tag">Escuta</span><span class="tag">Aberto</span></div>
+      </div>
+    </div>
+    <div class="logo-card" onclick="selecionar(this)" data-nome="Mãos 02 — Proteção">
+      <div class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div class="logo-img-wrap"><img src="https://amigosdaordemterceira.com/wp-content/uploads/2026/03/maos2.png" alt="Mãos 02" loading="lazy"></div>
+      <div class="logo-card-body">
+        <div class="logo-card-name">Mãos 02</div>
+        <div class="logo-card-type">Gesto de Proteção · Contorno</div>
+        <div class="logo-card-desc">Gesto mais contido que sugere proteção e cuidado ativo. O espaço terapêutico como um lugar verdadeiramente seguro.</div>
+        <div class="logo-card-tags"><span class="tag">Proteção</span><span class="tag">Segurança</span><span class="tag">Cuidado</span></div>
+      </div>
+    </div>
+    <div class="logo-card" onclick="selecionar(this)" data-nome="Mãos 03 — Abraço Circular">
+      <div class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div class="logo-img-wrap"><img src="https://amigosdaordemterceira.com/wp-content/uploads/2026/03/maos3.png" alt="Mãos 03" loading="lazy"></div>
+      <div class="logo-card-body">
+        <div class="logo-card-name">Mãos 03 — Abraço Circular</div>
+        <div class="logo-card-type">Forma Preenchida · Alta Recordação</div>
+        <div class="logo-card-desc">Mão em abraço circular, forma preenchida. Cria um espaço de contenção dentro do próprio símbolo. Exclusivo, memorável e escalável em qualquer tamanho.</div>
+        <div class="logo-card-tags"><span class="tag">Acolhimento</span><span class="tag">Exclusivo</span><span class="tag">Memorável</span></div>
+      </div>
+    </div>
+    <div class="logo-card" onclick="selecionar(this)" data-nome="Mãos 04">
+      <div class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div class="logo-img-wrap"><img src="https://amigosdaordemterceira.com/wp-content/uploads/2026/03/maos4.png" alt="Mãos 04" loading="lazy"></div>
+      <div class="logo-card-body">
+        <div class="logo-card-name">Mãos 04</div>
+        <div class="logo-card-type">Composição · Variação</div>
+        <div class="logo-card-desc">Quarta variação da família, com composição e peso visual distintos. Presença forte e equilibrada em todos os formatos.</div>
+        <div class="logo-card-tags"><span class="tag">Presença</span><span class="tag">Equilíbrio</span><span class="tag">Força</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="section-divider"></div>
+
+
+<!-- ÁRVORES (2) -->
+<div class="group">
+  <div class="group-header">
+    <div class="group-icon" style="background:var(--terra);">🌳</div>
+    <div>
+      <div class="group-title">Família: Árvore</div>
+      <div class="group-sub">Crescimento · Enraizamento · Resiliência</div>
+    </div>
+  </div>
+  <div class="group-meaning">
+    A árvore é um dos símbolos mais antigos da psicologia. Jung a usava como metáfora do desenvolvimento do self. Para quem sofre com esgotamento no trabalho, raízes profundas e galhos flexíveis ressoam de forma imediata. <strong>Um símbolo que não precisa ser explicado.</strong>
+  </div>
+  <div class="cards-row">
+    <div class="logo-card" onclick="selecionar(this)" data-nome="Árvore 01 — Raízes">
+      <div class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div class="logo-img-wrap"><img src="https://amigosdaordemterceira.com/wp-content/uploads/2026/03/arvore1.png" alt="Árvore 01" loading="lazy"></div>
+      <div class="logo-card-body">
+        <div class="logo-card-name">Árvore 01</div>
+        <div class="logo-card-type">Orgânico · Estrutural</div>
+        <div class="logo-card-desc">Copa ampla, raízes evidentes. Muito forte para conteúdos sobre burnout e sentido de vida no trabalho.</div>
+        <div class="logo-card-tags"><span class="tag">Enraizamento</span><span class="tag">Solidez</span><span class="tag">Crescimento</span></div>
+      </div>
+    </div>
+    <div class="logo-card" onclick="selecionar(this)" data-nome="Árvore 02 — Refinada">
+      <div class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div class="logo-img-wrap"><img src="https://amigosdaordemterceira.com/wp-content/uploads/2026/03/arvore2.png" alt="Árvore 02" loading="lazy"></div>
+      <div class="logo-card-body">
+        <div class="logo-card-name">Árvore 02</div>
+        <div class="logo-card-type">Orgânico · Refinado</div>
+        <div class="logo-card-desc">Traços refinados, composição contida. Maturidade e sofisticação. Funciona especialmente em contextos corporativos e consultorias.</div>
+        <div class="logo-card-tags"><span class="tag">Maturidade</span><span class="tag">Sofisticação</span><span class="tag">Corporativo</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="section-divider"></div>
+
+
+<!-- BORBOLETAS (2) -->
+<div class="group">
+  <div class="group-header">
+    <div class="group-icon" style="background:var(--ocean);">🦋</div>
+    <div>
+      <div class="group-title">Família: Borboleta</div>
+      <div class="group-sub">Transformação · Metamorfose · Ressignificação</div>
+    </div>
+  </div>
+  <div class="group-meaning">
+    O processo de metamorfose é literalmente o que acontece na psicoterapia: um estado interno que se dissolve e se reconstrói em algo mais integrado. <strong>A borboleta carrega essa narrativa de forma visual e imediata, sem precisar ser explicada.</strong>
+  </div>
+  <div class="cards-row">
+    <div class="logo-card" onclick="selecionar(this)" data-nome="Borboleta 01 — Movimento">
+      <div class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div class="logo-img-wrap"><img src="https://amigosdaordemterceira.com/wp-content/uploads/2026/03/borboleta1.png" alt="Borboleta 01" loading="lazy"></div>
+      <div class="logo-card-body">
+        <div class="logo-card-name">Borboleta 01</div>
+        <div class="logo-card-type">Transformacional · Leve</div>
+        <div class="logo-card-desc">Design etéreo, asas com movimento. A mudança como processo natural, não forçado. A jornada terapêutica em forma visual.</div>
+        <div class="logo-card-tags"><span class="tag">Transformação</span><span class="tag">Movimento</span><span class="tag">Leveza</span></div>
+      </div>
+    </div>
+    <div class="logo-card" onclick="selecionar(this)" data-nome="Borboleta 02 — Equilíbrio">
+      <div class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div class="logo-img-wrap"><img src="https://amigosdaordemterceira.com/wp-content/uploads/2026/03/borboleta2.png" alt="Borboleta 02" loading="lazy"></div>
+      <div class="logo-card-body">
+        <div class="logo-card-name">Borboleta 02</div>
+        <div class="logo-card-type">Transformacional · Estruturado</div>
+        <div class="logo-card-desc">Composição simétrica e geométrica. Transformação com estrutura e método. Perfeita para quem une humanismo e ciência.</div>
+        <div class="logo-card-tags"><span class="tag">Equilíbrio</span><span class="tag">Método</span><span class="tag">Clareza</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="section-divider"></div>
+
+
+<!-- INICIAIS (2) -->
+<div class="group">
+  <div class="group-header">
+    <div class="group-icon" style="background:var(--dark);font-size:14px;font-family:'DM Serif Display',serif;color:var(--sand);font-weight:400;">MA</div>
+    <div>
+      <div class="group-title">Família: Iniciais</div>
+      <div class="group-sub">Autoridade · Identidade Pessoal · Prestígio</div>
+    </div>
+  </div>
+  <div class="group-meaning">
+    Quando o nome é o principal ativo, o monograma é sua expressão máxima. Não depende de tendência, não precisa de metáfora. Envelhece bem e funciona em qualquer contexto, do cartão de visita à capa de um livro. <strong>A escolha de longo prazo.</strong>
+  </div>
+  <div class="cards-row">
+    <div class="logo-card" onclick="selecionar(this)" data-nome="Iniciais 01">
+      <div class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div class="logo-img-wrap"><img src="https://amigosdaordemterceira.com/wp-content/uploads/2026/03/iniciais1.png" alt="Iniciais 01" loading="lazy"></div>
+      <div class="logo-card-body">
+        <div class="logo-card-name">Iniciais 01</div>
+        <div class="logo-card-type">Monograma · Composição A</div>
+        <div class="logo-card-desc">As iniciais M e A em primeira composição. Elegante e direto. Autoridade profissional sem depender de símbolo figurativo.</div>
+        <div class="logo-card-tags"><span class="tag">Autoridade</span><span class="tag">Elegante</span><span class="tag">Atemporal</span></div>
+      </div>
+    </div>
+    <div class="logo-card" onclick="selecionar(this)" data-nome="Iniciais 02">
+      <div class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div class="logo-img-wrap"><img src="https://amigosdaordemterceira.com/wp-content/uploads/2026/03/iniciais2.png" alt="Iniciais 02" loading="lazy"></div>
+      <div class="logo-card-body">
+        <div class="logo-card-name">Iniciais 02</div>
+        <div class="logo-card-type">Monograma · Composição B</div>
+        <div class="logo-card-desc">Segunda composição das iniciais, com proporção e peso visual distintos. Mais dinâmica, mantém toda a distinção da família.</div>
+        <div class="logo-card-tags"><span class="tag">Distinção</span><span class="tag">Prestígio</span><span class="tag">Versátil</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="section-divider"></div>
+
+
+<!-- FOLHA (1) -->
+<div class="group">
+  <div class="group-header">
+    <div class="group-icon" style="background:var(--sage);">🍃</div>
+    <div>
+      <div class="group-title">Família: Folha</div>
+      <div class="group-sub">Leveza · Renovação · Equilíbrio Natural</div>
+    </div>
+  </div>
+  <div class="group-meaning">
+    A folha representa o ciclo da vida em sua forma mais simples: cresce, transforma e renova. Para uma psicóloga que trabalha com saúde e bem-estar, a folha traz leveza sem ser ingênua, e natureza sem ser genérica. <strong>Um símbolo que respira junto com quem o vê.</strong>
+  </div>
+  <div class="cards-row" style="grid-template-columns: minmax(260px, 360px);">
+    <div class="logo-card" onclick="selecionar(this)" data-nome="Folha — Renovação">
+      <div class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div class="logo-img-wrap"><img src="https://amigosdaordemterceira.com/wp-content/uploads/2026/03/Untitled-design-3.png" alt="Folha" loading="lazy"></div>
+      <div class="logo-card-body">
+        <div class="logo-card-name">Folha — Renovação</div>
+        <div class="logo-card-type">Símbolo Natural · Único</div>
+        <div class="logo-card-desc">Composição com folha, símbolo de renovação e equilíbrio. Delicado e distinto. Fala diretamente com quem busca recomeço e saúde.</div>
+        <div class="logo-card-tags"><span class="tag">Renovação</span><span class="tag">Equilíbrio</span><span class="tag">Leveza</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<footer>
+  <div class="footer-brand">Criado por <strong>Ingrid Aragão</strong> · Where code meets art</div>
+  <div class="footer-copy">Escolha de Logo · Manuela Amorim · 2026 · 11 conceitos</div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-icon">✓</div>
+    <h2>Você escolheu<br><em>essa logo?</em></h2>
+    <div class="modal-chosen" id="modal-nome"></div>
+    <p>Depois dessa confirmação, Ingrid finaliza o manual de marca completo com essa identidade aplicada em todos os materiais.</p>
+    <div class="modal-btns">
+      <button class="btn-back" onclick="fecharModal()">Voltar</button>
+      <button class="btn-send" onclick="confirmar()">Sim, essa é a minha logo!</button>
+    </div>
+  </div>
+</div>
+
+<!-- SUCESSO -->
+<div class="success-screen" id="sucesso">
+  <div class="success-icon">🎉</div>
+  <h2>Perfeito,<br><em>Manuela!</em></h2>
+  <p id="sucesso-msg"></p>
+</div>
+
+<script>
+  let selecionada = null;
+  function selecionar(card) {
+    document.querySelectorAll('.logo-card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    selecionada = card.dataset.nome;
+    document.getElementById('selected-name').textContent = selecionada;
+    document.getElementById('btn-confirmar').classList.add('active');
+    card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+  function abrirModal() {
+    if (!selecionada) return;
+    document.getElementById('modal-nome').textContent = selecionada;
+    document.getElementById('modal').classList.add('open');
+  }
+  function fecharModal() {
+    document.getElementById('modal').classList.remove('open');
+  }
+  function confirmar() {
+    fecharModal();
+    const msg = encodeURIComponent('Oi Ingrid! Escolhi a minha logo: *' + selecionada + '*. Pode finalizar o manual de marca!');
+    document.getElementById('sucesso').classList.add('open');
+    document.getElementById('sucesso-msg').textContent = 'Você escolheu "' + selecionada + '". Abrindo WhatsApp para notificar a Ingrid...';
+    setTimeout(() => {
+      window.open('https://wa.me/5571993477474?text=' + msg, '_blank');
+    }, 1200);
+  }
+  document.getElementById('modal').addEventListener('click', function(e) { if (e.target === this) fecharModal(); });
+</script>
+</body>
+</html>
